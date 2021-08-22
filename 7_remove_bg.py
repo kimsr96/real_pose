@@ -54,25 +54,25 @@ try:
 
         results = pose.process(cv2.cvtColor(bg_removed, cv2.COLOR_BGR2RGB))
         if results.pose_landmarks:
-            # Iterate two times as we only want to display first two landmarks.
-            # for i in range(10):
-            #     pos_x = int(results.pose_landmarks.landmark[mp_pose.PoseLandmark(i).value].x * image_width)
-            #     pos_y = int(results.pose_landmarks.landmark[mp_pose.PoseLandmark(i).value].y * image_height)
-            #     print(pos_x, pos_y)
-            #     dist = depth_frame.get_distance(int(pos_x), int(pos_y))
+            #Iterate two times as we only want to display first two landmarks.
+            for i in range(10):
+                pos_x = int(results.pose_landmarks.landmark[mp_pose.PoseLandmark(i).value].x * image_width)
+                pos_y = int(results.pose_landmarks.landmark[mp_pose.PoseLandmark(i).value].y * image_height)
+                print(pos_x, pos_y)
+                dist = depth_frame.get_distance(int(pos_x), int(pos_y))
                 
-            #     if dist == 0:
-            #         continue
+                if dist == 0:
+                    continue
                 
-            #     else:
-            #         print(f'{mp_pose.PoseLandmark(i).name}:') 
-            #         print(f'x: {pos_x}')
-            #         print(f'y: {pos_y}')
-            #         print(f'z: {results.pose_landmarks.landmark[mp_pose.PoseLandmark(i).value].z}')
-            #         print(f'distance: {dist}')
-                    #cv2.putText(color_image,  f'distance: {dist}', (pos_x, pos_y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,255), 1, cv2.LINE_AA)
-                    #cv2.circle(color_image, (pos_x, pos_y), 8, (0,0,255), -1)
-                #print(f'visibility: {results.pose_landmarks.landmark[mp_pose.PoseLandmark(i).value].visibility}\n')
+                else:
+                    print(f'{mp_pose.PoseLandmark(i).name}:') 
+                    print(f'x: {pos_x}')
+                    print(f'y: {pos_y}')
+                    print(f'z: {results.pose_landmarks.landmark[mp_pose.PoseLandmark(i).value].z}')
+                    print(f'distance: {dist}')
+                    cv2.putText(color_image,  f'distance: {dist}', (pos_x, pos_y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,255), 1, cv2.LINE_AA)
+                    cv2.circle(color_image, (pos_x, pos_y), 8, (0,0,255), -1)
+                print(f'visibility: {results.pose_landmarks.landmark[mp_pose.PoseLandmark(i).value].visibility}\n')
         
             mp_drawing.draw_landmarks(image=bg_removed, landmark_list=results.pose_landmarks, connections=mp_pose.POSE_CONNECTIONS)
 
